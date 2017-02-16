@@ -1,0 +1,81 @@
+{
+	"global": {
+		"parameter_maps": {
+			"refresh_token": "REFRESH-TOKEN"
+		},
+		"set": {
+			"endpoint_prerequisites": [
+				{
+					"endpoint": "refresh_token",
+					"repeat": false,
+					"merge_maps": {
+						"access_token": "ACCESS-TOKEN"
+					}
+				}
+			]
+		}
+	},
+	"common_endpoint_settings": {
+		"all": {
+			"time_limit": 60
+		}
+	},
+	"endpoints": {
+		"pull_user_feed": {
+			"maps_to": "get_user_feed",
+			"parameters": {
+				"limit": 20
+			},
+			"output": {
+				"data": {
+					"format": "iterable",
+					"location": ["data"]
+				},
+				"filter": [
+					{
+						"search_key": "name",
+						"search_value": "*|NAME|*",
+						"return_key": "text"
+					}
+				]
+			}
+		},
+		"pull_clients": {
+			"maps_to": "clients",
+			"output": {
+				"data": {
+					"items": {
+						"locations": {
+							"id": "ClientID",
+							"name": "Name"
+						}
+					}
+				}
+			}
+		},
+		"pull_list_count": {
+			"maps_to": "list_stats",
+			"parameter_maps": {
+				"list_id": "LIST-ID"
+			},
+			"output": {
+				"data" : {
+					"location": ["Total"]
+				}
+			}
+		},
+		"push_list_contacts": {
+			"maps_to": "add_contacts",
+			"parameter_maps": {
+				"contacts": "Members",
+				"list_id": "LIST-ID"
+			},
+			"array_set_templates": {
+				"Members": {
+					"EmailAddress": "email_address",
+					"Name": "full_name"
+				}
+			}
+		}
+	}
+}

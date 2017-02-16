@@ -1,0 +1,87 @@
+{
+	"base_uri": "https://some.api.com/",
+	"authentication": {
+		"steps": [
+			{
+				"type": "redirect",
+				"uri": "https://some.api.com/oauth",
+				"parameters": {
+					"client_id": "*|CLIENT-ID|*",
+					"redirect_uri": "*|REDIRECT-URI|*"
+				}
+			},
+			{
+				"type": "endpoint",
+				"endpoint": "access_token"
+			}
+		]
+	},
+	"common_endpoint_settings": {
+		"all": {
+			"output_format": "json",
+			"request_options": {
+				"headers": {
+					"Content-type": "application/x-www-form-urlencoded",
+					"Accept": "application/json"
+				}
+			},
+			"parameters": {
+				"access_token": "*|ACCESS-TOKEN|*"
+			}
+		}
+	},
+	"endpoints": {
+		"access_token": {
+			"uri": "oauth/access_token",
+			"method": "get",
+			"parameters": {
+				"client_id": "*|CLIENT-ID|*",
+				"client_secret": "*|CLIENT-SECRET|*",
+				"redirect_uri": "*|REDIRECT-URI|*",
+				"code": null,
+				"access_token": null
+			}
+		},
+		"get_user": {
+			"uri": "*|USER-ID|*",
+			"method": "get"
+		},
+		"get_lists": {
+			"uri": "lists/list.json",
+			"paging": {
+				"type": "page_number",
+				"parameters": {
+					"page_size": {
+						"name": "limit"
+					},
+					"page_number": {
+						"name": "start",
+						"base": 0
+					}
+				}
+			}
+		},
+		"add_users": {
+			"uri": "users/add.json",
+			"method": "post",
+			"parameters": {
+				"id": null,
+				"batch": null
+			},
+			"parameter_format": {
+				"batch": [
+					{
+						"email": {
+							"email": null
+						},
+						"email_type": null,
+						"merge_vars": {
+							"FNAME": null,
+							"LNAME": null
+						}
+					}
+				]
+			}
+		}
+	}
+}
