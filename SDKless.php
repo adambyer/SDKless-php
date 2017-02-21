@@ -25,9 +25,9 @@ class SDKless {
 	protected $auth = null;
 	protected $time_limit = null;
 
-	public function __construct($api_name = null, $global_vars = array()) {
+	public function __construct($api_name, $global_vars = array()) {
 		if (empty($api_name))
-			return;
+			throw new SDKlessException("SDKless requires api_name");
 
 		$sdkless_dir = dirname(dirname(__FILE__));
 		$this->api_name = $api_name;

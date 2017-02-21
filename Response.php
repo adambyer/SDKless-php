@@ -76,32 +76,30 @@ class Response {
 				$opts[$const] = $value;
 		}
 
-	  curl_setopt_array($curl, $opts);
-	  $response = curl_exec($curl);
-	  $curl_errno = curl_errno($curl);
-	  $curl_error = curl_error($curl);
-	  $this->last_status_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+		curl_setopt_array($curl, $opts);
+		$response = curl_exec($curl);
+		$curl_errno = curl_errno($curl);
+		$curl_error = curl_error($curl);
+		$this->last_status_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
-	  
-	  // error_log("*** SDKless::do_curl:opts:" . print_r($this->curl_opts, true));
-	  // error_log("*** SDKless::do_curl:errno:$curl_errno");
-	  // error_log("*** SDKless::do_curl:error:$curl_error");
-	  // error_log("*** SDKless::do_curl:http_code:{$this->last_status_code}");
-	  // error_log("*** SDKless::do_curl:url:{$this->uri}");
-	  // error_log("*** SDKless::do_curl:getinfo:" . print_r(curl_getinfo($curl), true));
-	  // error_log("*** SDKless::do_curl:response:" . print_r($response, true));
-	
+		// error_log("*** Response::do_curl:opts:" . print_r($this->curl_opts, true));
+		// error_log("*** Response::do_curl:errno:$curl_errno");
+		// error_log("*** Response::do_curl:error:$curl_error");
+		// error_log("*** Response::do_curl:http_code:{$this->last_status_code}");
+		// error_log("*** Response::do_curl:url:{$this->uri}");
+		// error_log("*** Response::do_curl:getinfo:" . print_r(curl_getinfo($curl), true));
+		// error_log("*** Response::do_curl:response:" . print_r($response, true));
 
-	  if (!empty($curl_errno) || !empty($curl_error))
-	  	throw new SDKlessException("curl error: $curl_error ($curl_errno)");
+		if (!empty($curl_errno) || !empty($curl_error))
+			throw new SDKlessException("curl error: $curl_error ($curl_errno)");
 
-	  $curl_info = curl_getinfo($curl);
-	  $curl_info['errno'] = $curl_errno;
-	  $curl_info['error'] = $curl_error;
+		$curl_info = curl_getinfo($curl);
+		$curl_info['errno'] = $curl_errno;
+		$curl_info['error'] = $curl_error;
 		$this->curl_info[$this->config->custom_endpoint_name][] = $curl_info;
 		curl_close($curl);
 
-	  return $response;
+		return $response;
 	}
 
 	private function get_curl_opts() {

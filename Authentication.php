@@ -108,7 +108,7 @@ class Authentication {
 					$value = null;
 					break;
 				case 'oauth_callback':
-					//if ($this->config->actual_endpoint_name != 'request_token')
+					if ($this->config->actual_endpoint_name != 'request_token')
 						$value = null;
 
 					break;
@@ -170,11 +170,11 @@ class Authentication {
 
 		$oauth_signature = base64_encode(hash_hmac('sha1', $parameter_string, $signing_key, true));
 
-		error_log("*** SDKless:Authentication::get_oauth_signature:signature_params:" . print_r($signature_params, true));
-		error_log("*** SDKless:Authentication::get_oauth_signature:signature_pairs:" . print_r($signature_pairs, true));
-		error_log("*** SDKless:Authentication::get_oauth_signature:parameter_string:$parameter_string");
-		error_log("*** SDKless:Authentication::get_oauth_signature:signing_key:$signing_key");
-		error_log("*** SDKless:Authentication::get_oauth_signature:oauth_signature:$oauth_signature");
+		// error_log("*** SDKless:Authentication::get_oauth_signature:signature_params:" . print_r($signature_params, true));
+		// error_log("*** SDKless:Authentication::get_oauth_signature:signature_pairs:" . print_r($signature_pairs, true));
+		// error_log("*** SDKless:Authentication::get_oauth_signature:parameter_string:$parameter_string");
+		// error_log("*** SDKless:Authentication::get_oauth_signature:signing_key:$signing_key");
+		// error_log("*** SDKless:Authentication::get_oauth_signature:oauth_signature:$oauth_signature");
 
 		return $oauth_signature;
 	}
